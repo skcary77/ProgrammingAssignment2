@@ -7,7 +7,8 @@
 makeCacheMatrix <- function(iMatrix = matrix()) {
         inverse <- NULL
         #calling makeCacheMatrix$set(y) allows you to change the matrix without excuting
-        #the entire function. It also clears the inverse from the cache
+        #the entire function. It also clears the inverse from the cache, which ensures that 
+        #the inverse will be re-calculated after setting a new matrix
         set <- function(y) {
                 iMatrix <<- y
                 inverse <<- NULL
@@ -27,15 +28,14 @@ makeCacheMatrix <- function(iMatrix = matrix()) {
 cacheSolve <- function(iMatrix, ...) {
         ## pulls the inverse from makeCacheMartix
         solved <- iMatrix$getinverse()
-        ## if it is not null, then return it
+        ## if it is not null, then return it from the cache
         if(!is.null(solved)){
-                #message("getting cached data")
-                #return(solved)
-                return()
+                message("getting cached data")
+                return(solved)
         }
         #otherwise, comput the inverse, store it to the cache, then return it
         data <- iMatrix$get()
         solved <- solve(data)
         iMatrix$setinverse(solved)
-        #solved       
+        solved       
 }
